@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import { getAllDays } from "../controllers/daysController.js";
+import db from "../config/db.js";
+
 const router = express.Router();
-const { getAllDays } = require("../controllers/daysController");
-const db = require("../config/db");   // ✅ ADD THIS
 
 router.get("/days", getAllDays);
 
@@ -13,4 +14,4 @@ router.get("/day/:daycode", (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

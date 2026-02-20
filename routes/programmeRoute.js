@@ -1,8 +1,9 @@
-const express = require("express");
+import express from "express";
+import { getProgrammesByDay } from "../controllers/programmeController.js";
+
 const router = express.Router();
-const { getProgrammesByDay } = require("../controllers/programmeController");
 
 // GET /api/programmes/:daycode
 router.get("/programmes/:daycode", getProgrammesByDay);
 
-module.exports = router;
+export default router;

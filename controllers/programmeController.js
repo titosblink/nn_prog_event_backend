@@ -1,7 +1,7 @@
-const db = require("../config/db");
+import db from "../config/db.js";
 
-exports.getProgrammesByDay = (req, res) => {
-  const daycode = req.params.daycode; // get daycode from URL
+const getProgrammesByDay = (req, res) => {
+  const daycode = req.params.daycode;
   const sql = "SELECT * FROM programme WHERE daycode = ?";
 
   db.query(sql, [daycode], (err, results) => {
@@ -9,3 +9,5 @@ exports.getProgrammesByDay = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+export { getProgrammesByDay };

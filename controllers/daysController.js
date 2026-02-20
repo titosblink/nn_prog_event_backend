@@ -1,6 +1,6 @@
-const db = require("../config/db");
+import db from "../config/db.js";
 
-exports.getAllDays = (req, res) => {
+const getAllDays = (req, res) => {
   const sql = "SELECT * FROM days";
 
   db.query(sql, (err, result) => {
@@ -15,4 +15,4 @@ exports.getAllDays = (req, res) => {
   });
 };
 
-
+export { getAllDays };
