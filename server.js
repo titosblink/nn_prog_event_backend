@@ -1,17 +1,13 @@
-import dotenv from "dotenv";
-
-console.log("DB_USER:", process.env.DB_USER);
-console.log("DB_PASSWORD:", process.env.DB_PASSWORD ? "SET" : "NOT SET");
-console.log("DB_HOST:", process.env.DB_HOST);
-console.log("DB_NAME:", process.env.DB_NAME);
-
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 
 import daysRoute from "./routes/daysRoute.js";
 import programmeRoute from "./routes/programmeRoute.js";
 
 dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -20,6 +16,10 @@ app.use(express.json());
 
 app.use("/api", daysRoute);
 app.use("/api", programmeRoute);
+
+app.get("/", (req, res) => {
+  res.send("NN Week API running 🚀");
+});
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,18 +1,15 @@
-import db from "../config/db.js";
+import Day from "../models/Day.js";
 
-const getAllDays = (req, res) => {
-  const sql = "SELECT * FROM days";
-
-  db.query(sql, (err, result) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Error fetching days",
-        error: err
-      });
-    }
-
-    res.status(200).json(result);
-  });
+const getAllDays = async (req, res) => {
+  try {
+    const days = await Day.find();
+    res.status(200).json(days);
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching days",
+      error: err
+    });
+  }
 };
 
 export { getAllDays };

@@ -1,17 +1,21 @@
 import express from "express";
 import { getAllDays } from "../controllers/daysController.js";
-import db from "../config/db.js";
+import Day from "../models/Day.js";
 
 const router = express.Router();
 
 router.get("/days", getAllDays);
 
-router.get("/day/:daycode", (req, res) => {
-  const sql = "SELECT * FROM days WHERE daycode = ?";
-  db.query(sql, [req.params.daycode], (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result[0]);
-  });
+router.get("/day/:daycode", async (req, res) => {
+  try {
+    const day = await Day.findOne({
+      daycode: req.params.daycode
+    });
+
+    res.json(day);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 export default router;

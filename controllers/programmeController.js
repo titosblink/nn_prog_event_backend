@@ -1,13 +1,18 @@
-import db from "../config/db.js";
+import Programme from "../models/Programme.js";
 
-const getProgrammesByDay = (req, res) => {
-  const daycode = req.params.daycode;
-  const sql = "SELECT * FROM programme WHERE daycode = ?";
+const getProgrammesByDay = async (req, res) => {
+  try {
+    const programmes = await Programme.find({
+      daycode: req.params.daycode
+    });
 
-  db.query(sql, [daycode], (err, results) => {
-    if (err) return res.status(500).json({ message: "DB Error", error: err });
-    res.status(200).json(results);
-  });
+    res.status(200).json(programmes);
+  } catch (err) {
+    res.status(500).json({
+      message: "DB Error",
+      error: err
+    });
+  }
 };
 
 export { getProgrammesByDay };
