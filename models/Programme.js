@@ -7,4 +7,7 @@ const programmeSchema = new mongoose.Schema({
   venue: { type: String, required: true }
 });
 
-export default mongoose.model("Programme", programmeSchema);
+// Use the existing model if it exists, otherwise create a new one
+const Programme = mongoose.models.Programme || mongoose.model("Programme", programmeSchema);
+
+export default Programme;
